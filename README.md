@@ -9,4 +9,4 @@ Enter this command on Terminal application.
 
 `curl -o /tmp/CheckOTA.sh https://raw.githubusercontent.com/pookjw/CheckOTA/master/CheckOTA.sh; chmod +x /tmp/CheckOTA.sh; /tmp/CheckOTA.sh`
 
-![Image](https://farm5.staticflickr.com/4286/34889890602_2752e863c8_o.png)
+![Image](https://farm5.staticflickr.com/4260/34922871701_6feb5e660c_o.png)

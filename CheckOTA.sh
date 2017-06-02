@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=9
+VERSION=10
 VERBOSE=NO
 INTERVAL=1 # 1 second
 DEMO_MODE=NO
@@ -47,7 +47,7 @@ function setUpdateURL(){
 		echo "(5) iOS Developer Beta"
 		echo "(6) iOS Public Beta"
 		echo "(7) watchOS Public Release"
-		echo "(8) watchOS Developer Release"
+		echo "(8) watchOS Developer Beta"
 		echo "(9) watchOS Public Beta"
 		echo "(10) tvOS Public Release"
 		echo "(11) tvOS Developer Beta"
