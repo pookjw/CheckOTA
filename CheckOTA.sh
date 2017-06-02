@@ -1,9 +1,11 @@
 #!/bin/sh
 
-VERSION=1
+VERSION=2
 VERBOSE=YES
 INTERVAL=1 # 1 second
 TEST_MODE=NO
+iOSPublicReleaseURL="http://mesu.apple.com/assets/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
+iOSPublicReleaseDocumentationURL="http://mesu.apple.com/assets/com_apple_MobileAsset_SoftwareUpdateDocumentation/com_apple_MobileAsset_SoftwareUpdateDocumentation.xml"
 iOSDeveloperBetaURL="http://mesu.apple.com/assets/iOSDeveloperSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
 iOSDeveloperBetaDocumentationURL="http://mesu.apple.com/assets/iOSDeveloperSeed/com_apple_MobileAsset_SoftwareUpdateDocumentation/com_apple_MobileAsset_SoftwareUpdateDocumentation.xml"
 iOSPublicBetaURL10="http://mesu.apple.com/assets/iOSPublicSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
@@ -15,33 +17,35 @@ function setUpdateURL(){
 		showLines "*"
 		echo "Set Update URL"
 		showLines "-"
-		echo "(1) iOS Developer Beta \033[1;36m(Recommended)\033[0m"
-		echo "(2) iOS Developer Beta Documentation"
-		echo "(3) iOS Public Beta"
-		echo "(4) iOS Public Beta Documentation"
-		echo "(5) Enter URL manually (See https://www.theiphonewiki.com/wiki/OTA_Updates#External_links)"
+		echo "(1) iOS Public Release \033[1;36m(Recommended)\033[0m"
+		echo "(2) iOS Public Release Documentation"
+		echo "(3) iOS Developer Beta \033[1;36m(Recommended)\033[0m"
+		echo "(4) iOS Developer Beta Documentation"
+		echo "(5) iOS Public Beta \033[1;36m(Recommended)\033[0m"
+		echo "(6) iOS Public Beta Documentation"
+		echo "(7) Enter URL manually (See https://www.theiphonewiki.com/wiki/OTA_Updates#External_links)"
 		if [[ "${VERBOSE}" == NO ]]; then
-			echo "(6) Enable Verbose mode."
+			echo "(8) Enable Verbose mode."
 		else
-			echo "(6) Disable Verbose mode."
+			echo "(8) Disable Verbose mode."
 		fi
 		showLines "-"
 		echo "Enter number. (Enter exit to quit.)"
 		showLines "*"
 		read -p "- " ANSWER
-		if [[ "${ANSWER}" == 1 ]]; then
+		if [[ "${ANSWER}" == 3 ]]; then
 			UpdateURL="${iOSDeveloperBetaURL}"
 			break
-		elif [[ "${ANSWER}" == 2 ]]; then
+		elif [[ "${ANSWER}" == 4 ]]; then
 			UpdateURL="${iOSDeveloperBetaDocumentationURL}"
 			break
-		elif [[ "${ANSWER}" == 3 ]]; then
+		elif [[ "${ANSWER}" == 5 ]]; then
 			UpdateURL="${iOSPublicBetaURL10}"
 			break
-		elif [[ "${ANSWER}" == 4 ]]; then
+		elif [[ "${ANSWER}" == 6 ]]; then
 			UpdateURL="${iOSPublicBetaDocumentationURL10}"
 			break
-		elif [[ "${ANSWER}" == 5 ]]; then
+		elif [[ "${ANSWER}" == 7 ]]; then
 			echo "Enter URL."
 			read -p "- " UpdateURL
 			if [[ ! -z "${UpdateURL}" ]]; then
@@ -49,7 +53,7 @@ function setUpdateURL(){
 			elif [[ "${UpdateURL}" == exit ]]; then
 				exit 0
 			fi
-		elif [[ "${ANSWER}" == 6 ]]; then
+		elif [[ "${ANSWER}" == 8 ]]; then
 			if [[ "${VERBOSE}" == NO ]]; then
 				echo "VERBOSE=YES"
 				VERBOSE=YES

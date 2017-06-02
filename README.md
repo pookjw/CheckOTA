@@ -7,4 +7,4 @@ Check iOS OTA Update automatically
 
 Enter this command on Terminal application.
 
-`curl -o /tmp/CheckOTA.sh https://raw.githubusercontent.com/pookjw/CheckOTA/master/CheckOTA.sh; chmod +x /tmp/CheckOTA.sh; .//tmp/CheckOTA.sh`
+`curl -o /tmp/CheckOTA.sh https://raw.githubusercontent.com/pookjw/CheckOTA/master/CheckOTA.sh; chmod +x /tmp/CheckOTA.sh; /tmp/CheckOTA.sh`
