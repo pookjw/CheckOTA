@@ -1,7 +1,7 @@
 #!/bin/sh
 
-VERSION=7
-VERBOSE=YES
+VERSION=8
+VERBOSE=NO
 INTERVAL=1 # 1 second
 DEMO_MODE=NO
 iOSPublicReleaseURL="http://mesu.apple.com/assets/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
@@ -15,6 +15,21 @@ tvOSDeveloperBetaURL="http://mesu.apple.com/assets/tvOSDeveloperSeed/com_apple_M
 ApplePencilURL="http://mesu.apple.com/assets/com_apple_MobileAsset_MobileAccessoryUpdate_WirelessStylusFirmware/com_apple_MobileAsset_MobileAccessoryUpdate_WirelessStylusFirmware.xml"
 SiriRemoteURL="http://mesu.apple.com/assets/tv/com_apple_MobileAsset_MobileAccessoryUpdate_WirelessRemoteFirmware/com_apple_MobileAsset_MobileAccessoryUpdate_WirelessRemoteFirmware.xml"
 SmartKeyboardURL="http://mesu.apple.com/assets/com_apple_MobileAsset_MobileAccessoryUpdate_KeyboardCoverFirmware/com_apple_MobileAsset_MobileAccessoryUpdate_KeyboardCoverFirmware.xml"
+
+function setTempPath(){
+	if [[ ! -d /tmp/CheckOTA ]]; then
+		mkdir /tmp/CheckOTA
+	fi
+	COUNT=0
+	while(true); do
+		COUNT=$((${COUNT}+1))
+		if [[ ! -d "/tmp/CheckOTA/${COUNT}" ]]; then
+			mkdir "/tmp/CheckOTA/${COUNT}"
+			TEMP_PATH="/tmp/CheckOTA/${COUNT}"
+			break
+		fi
+	done
+}
 
 function setUpdateURL(){
 	while(true); do
@@ -77,7 +92,7 @@ function setUpdateURL(){
 			if [[ ! -z "${UpdateURL}" ]]; then
 				break
 			elif [[ "${UpdateURL}" == exit ]]; then
-				exit 0
+				quitTool
 			fi
 		elif [[ "${ANSWER}" == showDevSet ]]; then
 			clear
@@ -86,6 +101,7 @@ function setUpdateURL(){
 			echo "VERBOSE=${VERBOSE}"
 			echo "INTERVAL=${INTERVAL}"
 			echo "DEMO_MODE=${DEMO_MODE}"
+			echo "TEMP_PATH=${TEMP_PATH}"
 			echo "iOSPublicReleaseURL=${iOSPublicReleaseURL}"
 			echo "iOSDeveloperBetaURL=${iOSDeveloperBetaURL}"
 			echo "iOSPublicBetaURL10=${iOSPublicBetaURL10}"
@@ -100,7 +116,7 @@ function setUpdateURL(){
 			showLines "*"
 			read -s -n 1 -p "Press any key to continue..."
 		elif [[ "${ANSWER}" == exit ]]; then
-			exit 0
+			quitTool
 		elif [[ -z "${ANSWER}" ]]; then
 			:
 		else
@@ -113,15 +129,15 @@ function setUpdateURL(){
 function startService(){
 	clear
 	showLines "*"
-	if [[ -f /tmp/catalog.xml ]]; then
-		rm /tmp/catalog.xml
+	if [[ -f "${TEMP_PATH}/catalog.xml" ]]; then
+		rm "${TEMP_PATH}/catalog.xml"
 	fi
 	if [[ "${VERBOSE}" == NO ]]; then
-		curl -o /tmp/catalog.xml "${UpdateURL}" > /dev/null 2>&1
+		curl -o "${TEMP_PATH}/catalog.xml" "${UpdateURL}" > /dev/null 2>&1
 	else
-		curl -o /tmp/catalog.xml "${UpdateURL}"
+		curl -o "${TEMP_PATH}/catalog.xml" "${UpdateURL}"
 	fi
-	FIRST_SHA="$(shasum /tmp/catalog.xml | awk '{ print $1 }')"
+	FIRST_SHA="$(shasum "${TEMP_PATH}/catalog.xml" | awk '{ print $1 }')"
 	if [[ "${VERBOSE}" == NO ]]; then
 		echo "Started!"
 	else
@@ -136,30 +152,29 @@ function startService(){
 		else
 			echo "\033[1;36mChecking... (${COUNT})\033[0m"
 		fi
-		if [[ -f /tmp/catalog.xml ]]; then
-			rm /tmp/catalog.xml
+		if [[ -f "${TEMP_PATH}/catalog.xml" ]]; then
+			rm "${TEMP_PATH}/catalog.xml"
 		fi
 		if [[ "${VERBOSE}" == NO ]]; then
-			curl -o /tmp/catalog.xml "${UpdateURL}" > /dev/null 2>&1
+			curl -o "${TEMP_PATH}/catalog.xml" "${UpdateURL}" > /dev/null 2>&1
 		else
-			curl -o /tmp/catalog.xml "${UpdateURL}"
+			curl -o "${TEMP_PATH}/catalog.xml" "${UpdateURL}"
 		fi
 		if [[ ! "${DEMO_MODE}" == NO && "${COUNT}" == 5 ]]; then
 			LATER_SHA=TEST
 		else
-			LATER_SHA="$(shasum /tmp/catalog.xml | awk '{ print $1 }')"
+			LATER_SHA="$(shasum "${TEMP_PATH}/catalog.xml" | awk '{ print $1 }')"
 		fi
 		if [[ "${VERBOSE}" == YES ]]; then
 			echo "${LATER_SHA}"
 		fi
 		if [[ ! "${FIRST_SHA}" == "${LATER_SHA}" ]]; then
 			echo "\033[1;36mFound update!\033[0m Check update from your device."
-			rm /tmp/catalog.xml
 			break			
 		fi
 	done
 	showLines "*"
-	exit 0
+	quitTool
 }
 
 function showLines(){
@@ -174,7 +189,13 @@ function showLines(){
 	fi
 }
 
+function quitTool(){
+	rm -rf "${TEMP_PATH}"
+	exit 0
+}
+
 #######################################
 
+setTempPath
 setUpdateURL
 startService
