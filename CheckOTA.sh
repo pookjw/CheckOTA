@@ -1,9 +1,12 @@
 #!/bin/sh
 
-VERSION=8
+VERSION=9
 VERBOSE=NO
 INTERVAL=1 # 1 second
 DEMO_MODE=NO
+macOSPublicReleaseURL1012="https://swscan.apple.com/content/catalogs/others/index-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog.gz"
+macOSDeveloperBetaURL1012="https://swscan.apple.com/content/catalogs/others/index-10.12seed-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog.gz"
+macOSPublicBetaURL1012="https://swscan.apple.com/content/catalogs/others/index-10.12beta-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog.gz"
 iOSPublicReleaseURL="http://mesu.apple.com/assets/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
 iOSDeveloperBetaURL="http://mesu.apple.com/assets/iOSDeveloperSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
 iOSPublicBetaURL10="http://mesu.apple.com/assets/iOSPublicSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
@@ -37,56 +40,68 @@ function setUpdateURL(){
 		showLines "*"
 		echo "Set Update URL"
 		showLines "-"
-		echo "(1) iOS Public Release"
-		echo "(2) iOS Developer Beta"
-		echo "(3) iOS Public Beta"
-		echo "(4) watchOS Public Release"
-		echo "(5) watchOS Developer Release"
-		echo "(6) watchOS Public Beta"
-		echo "(7) tvOS Public Release"
-		echo "(8) tvOS Developer Beta"
-		echo "(9) Apple Pencil"
-		echo "(10) Siri Remote"
-		echo "(11) Smart Keyboard (iPad Pro)"
-		echo "(12) Enter URL manually"
+		echo "(1) macOS Public Release (10.12)"
+		echo "(2) macOS Developer Beta (10.12)"
+		echo "(3) macOS Public Beta (10.12)"
+		echo "(4) iOS Public Release"
+		echo "(5) iOS Developer Beta"
+		echo "(6) iOS Public Beta"
+		echo "(7) watchOS Public Release"
+		echo "(8) watchOS Developer Release"
+		echo "(9) watchOS Public Beta"
+		echo "(10) tvOS Public Release"
+		echo "(11) tvOS Developer Beta"
+		echo "(12) Apple Pencil"
+		echo "(13) Siri Remote"
+		echo "(14) Smart Keyboard (iPad Pro)"
+		echo "(15) Enter URL manually"
 		showLines "-"
 		echo "Enter number. (Enter exit to quit.)"
 		showLines "*"
 		read -p "- " ANSWER
 		if [[ "${ANSWER}" == 1 ]]; then
-			UpdateURL="${iOSPublicReleaseURL}"
+			UpdateURL="${macOSPublicReleaseURL1012}"
 			break
 		elif [[ "${ANSWER}" == 2 ]]; then
-			UpdateURL="${iOSDeveloperBetaURL}"
+			UpdateURL="${macOSDeveloperBetaURL1012}"
 			break
 		elif [[ "${ANSWER}" == 3 ]]; then
-			UpdateURL="${iOSPublicBetaURL10}"
+			UpdateURL="${macOSPublicBetaURL1012}"
 			break
 		elif [[ "${ANSWER}" == 4 ]]; then
-			UpdateURL="${watchOSPublicReleaseURL}"
+			UpdateURL="${iOSPublicReleaseURL}"
 			break
 		elif [[ "${ANSWER}" == 5 ]]; then
-			UpdateURL="${watchOSDeveloperBetaURL}"
+			UpdateURL="${iOSDeveloperBetaURL}"
 			break
 		elif [[ "${ANSWER}" == 6 ]]; then
-			UpdateURL="${watchOSPublicBetaURL2}"
+			UpdateURL="${iOSPublicBetaURL10}"
 			break
 		elif [[ "${ANSWER}" == 7 ]]; then
-			UpdateURL="${tvOSPublicReleaseURL}"
+			UpdateURL="${watchOSPublicReleaseURL}"
 			break
 		elif [[ "${ANSWER}" == 8 ]]; then
-			UpdateURL="${tvOSDeveloperBetaURL}"
+			UpdateURL="${watchOSDeveloperBetaURL}"
 			break
 		elif [[ "${ANSWER}" == 9 ]]; then
-			UpdateURL="${ApplePencilURL}"
+			UpdateURL="${watchOSPublicBetaURL2}"
 			break
 		elif [[ "${ANSWER}" == 10 ]]; then
-			UpdateURL="${SiriRemoteURL}"
+			UpdateURL="${tvOSPublicReleaseURL}"
 			break
 		elif [[ "${ANSWER}" == 11 ]]; then
-			UpdateURL="${SmartKeyboardURL}"
+			UpdateURL="${tvOSDeveloperBetaURL}"
 			break
 		elif [[ "${ANSWER}" == 12 ]]; then
+			UpdateURL="${ApplePencilURL}"
+			break
+		elif [[ "${ANSWER}" == 13 ]]; then
+			UpdateURL="${SiriRemoteURL}"
+			break
+		elif [[ "${ANSWER}" == 14 ]]; then
+			UpdateURL="${SmartKeyboardURL}"
+			break
+		elif [[ "${ANSWER}" == 15 ]]; then
 			echo "Enter URL. (See https://www.theiphonewiki.com/wiki/OTA_Updates#External_links)"
 			read -p "- " UpdateURL
 			if [[ ! -z "${UpdateURL}" ]]; then
@@ -102,6 +117,9 @@ function setUpdateURL(){
 			echo "INTERVAL=${INTERVAL}"
 			echo "DEMO_MODE=${DEMO_MODE}"
 			echo "TEMP_PATH=${TEMP_PATH}"
+			echo "macOSPublicReleaseURL1012=${macOSPublicReleaseURL1012}"
+			echo "macOSDeveloperBetaURL1012=${macOSDeveloperBetaURL1012}"
+			echo "macOSPublicBetaURL1012=${macOSPublicBetaURL1012}"
 			echo "iOSPublicReleaseURL=${iOSPublicReleaseURL}"
 			echo "iOSDeveloperBetaURL=${iOSDeveloperBetaURL}"
 			echo "iOSPublicBetaURL10=${iOSPublicBetaURL10}"

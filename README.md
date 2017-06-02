@@ -1,4 +1,4 @@
-![Image](https://farm5.staticflickr.com/4265/35047213645_a3fdd0d1eb_o.png)
+![Image](https://farm5.staticflickr.com/4248/35013961216_8223d84bfa_o.png)
 
 # CheckOTA
 Check Apple OTA Update infinitely
@@ -9,4 +9,4 @@ Enter this command on Terminal application.
 
 `curl -o /tmp/CheckOTA.sh https://raw.githubusercontent.com/pookjw/CheckOTA/master/CheckOTA.sh; chmod +x /tmp/CheckOTA.sh; /tmp/CheckOTA.sh`
 
-![Image](https://farm5.staticflickr.com/4210/35010382046_4c5459a0b8_o.png)
+![Image](https://farm5.staticflickr.com/4286/34889890602_2752e863c8_o.png)
