@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=2
+VERSION=3
 VERBOSE=YES
 INTERVAL=1 # 1 second
 TEST_MODE=NO
@@ -25,9 +25,9 @@ function setUpdateURL(){
 		echo "(6) iOS Public Beta Documentation"
 		echo "(7) Enter URL manually (See https://www.theiphonewiki.com/wiki/OTA_Updates#External_links)"
 		if [[ "${VERBOSE}" == NO ]]; then
-			echo "(8) Enable Verbose mode."
+			echo "(8) Enable verbose mode."
 		else
-			echo "(8) Disable Verbose mode."
+			echo "(8) Disable verbose mode."
 		fi
 		showLines "-"
 		echo "Enter number. (Enter exit to quit.)"
