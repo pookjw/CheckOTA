@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=3
+VERSION=4
 VERBOSE=YES
 INTERVAL=1 # 1 second
 TEST_MODE=NO
@@ -33,7 +33,13 @@ function setUpdateURL(){
 		echo "Enter number. (Enter exit to quit.)"
 		showLines "*"
 		read -p "- " ANSWER
-		if [[ "${ANSWER}" == 3 ]]; then
+		if [[ "${ANSWER}" == 1 ]]; then
+			UpdateURL="${iOSPublicReleaseURL}"
+			break
+		elif [[ "${ANSWER}" == 2 ]]; then
+			UpdateURL="${iOSPublicReleaseDocumentationURL}"
+			break
+		elif [[ "${ANSWER}" == 3 ]]; then
 			UpdateURL="${iOSDeveloperBetaURL}"
 			break
 		elif [[ "${ANSWER}" == 4 ]]; then
