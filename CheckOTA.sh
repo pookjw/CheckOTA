@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=4
+VERSION=5
 VERBOSE=YES
 INTERVAL=1 # 1 second
 TEST_MODE=NO
@@ -24,11 +24,6 @@ function setUpdateURL(){
 		echo "(5) iOS Public Beta \033[1;36m(Recommended)\033[0m"
 		echo "(6) iOS Public Beta Documentation"
 		echo "(7) Enter URL manually (See https://www.theiphonewiki.com/wiki/OTA_Updates#External_links)"
-		if [[ "${VERBOSE}" == NO ]]; then
-			echo "(8) Enable verbose mode."
-		else
-			echo "(8) Disable verbose mode."
-		fi
 		showLines "-"
 		echo "Enter number. (Enter exit to quit.)"
 		showLines "*"
@@ -59,15 +54,6 @@ function setUpdateURL(){
 			elif [[ "${UpdateURL}" == exit ]]; then
 				exit 0
 			fi
-		elif [[ "${ANSWER}" == 8 ]]; then
-			if [[ "${VERBOSE}" == NO ]]; then
-				echo "VERBOSE=YES"
-				VERBOSE=YES
-			else
-				echo "VERBOSE=NO"
-				VERBOSE=NO
-			fi
-			read -s -n 1 -p "Press any key to continue..."
 		elif [[ "${ANSWER}" == exit ]]; then
 			exit 0
 		elif [[ -z "${ANSWER}" ]]; then
@@ -122,7 +108,7 @@ function startService(){
 			echo "${LATER_SHA}"
 		fi
 		if [[ ! "${FIRST_SHA}" == "${LATER_SHA}" ]]; then
-			echo "\033[1;36mFound update!\033[0m Check from your iOS Device."
+			echo "\033[1;36mFound update!\033[0m Check from your iOS device."
 			rm /tmp/catalog.xml
 			break			
 		fi
