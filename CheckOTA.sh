@@ -1,9 +1,9 @@
 #!/bin/sh
 
-VERSION=6
+VERSION=7
 VERBOSE=YES
-INTERVAL=0 # 1 second
-DEMO_MODE=YES
+INTERVAL=1 # 1 second
+DEMO_MODE=NO
 iOSPublicReleaseURL="http://mesu.apple.com/assets/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
 iOSDeveloperBetaURL="http://mesu.apple.com/assets/iOSDeveloperSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
 iOSPublicBetaURL10="http://mesu.apple.com/assets/iOSPublicSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
