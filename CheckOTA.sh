@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=10
+VERSION=11
 VERBOSE=NO
 INTERVAL=1 # 1 second
 DEMO_MODE=NO
@@ -187,7 +187,7 @@ function startService(){
 			echo "${LATER_SHA}"
 		fi
 		if [[ ! "${FIRST_SHA}" == "${LATER_SHA}" ]]; then
-			echo "\033[1;36mFound update!\033[0m Check update from your device."
+			echo "\033[1;36mFound update!\033[0m Check update from your device. (Captured time : $(date "+%Y-%m-%d_%H:%M:%S"))"
 			break			
 		fi
 	done
