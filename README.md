@@ -3,6 +3,10 @@
 # CheckOTA
 Check Apple OTA Update infinitely
 
+# About iOS 11
+
+Seems like Apple changed OTA update url. Sorry. Only for iOS 10 updates yet.
+
 # How to run
 
 Enter this command on Terminal application.

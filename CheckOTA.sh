@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=12
+VERSION=13
 VERBOSE=NO
 INTERVAL=1 # 1 second
 DEMO_MODE=NO
@@ -40,12 +40,12 @@ function setUpdateURL(){
 		showLines "*"
 		echo "Set Update URL"
 		showLines "-"
-		echo "(\033[1;36m1\033[0m) macOS Public Release (10.12)"
-		echo "(\033[1;36m2\033[0m) macOS Developer Beta (10.12)"
-		echo "(\033[1;36m3\033[0m) macOS Public Beta (10.12)"
+		echo "(\033[1;36m1\033[0m) macOS Public Release (macOS 10.12)"
+		echo "(\033[1;36m2\033[0m) macOS Developer Beta (macOS 10.12)"
+		echo "(\033[1;36m3\033[0m) macOS Public Beta (macOS 10.12)"
 		echo "(\033[1;36m4\033[0m) iOS Public Release"
-		echo "(\033[1;36m5\033[0m) iOS Developer Beta"
-		echo "(\033[1;36m6\033[0m) iOS Public Beta"
+		echo "(\033[1;36m5\033[0m) iOS Developer Beta (iOS 10)"
+		echo "(\033[1;36m6\033[0m) iOS Public Beta (iOS 10)"
 		echo "(\033[1;36m7\033[0m) watchOS Public Release"
 		echo "(\033[1;36m8\033[0m) watchOS Developer Beta"
 		echo "(\033[1;36m9\033[0m) watchOS Public Beta"
