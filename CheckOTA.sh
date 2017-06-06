@@ -1,18 +1,22 @@
 #!/bin/sh
 
-VERSION=13
+VERSION=14
 VERBOSE=NO
 INTERVAL=1 # 1 second
 DEMO_MODE=NO
+DEMO_COUNT=5
 macOSPublicReleaseURL1012="https://swscan.apple.com/content/catalogs/others/index-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog.gz"
 macOSDeveloperBetaURL1012="https://swscan.apple.com/content/catalogs/others/index-10.12seed-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog.gz"
 macOSPublicBetaURL1012="https://swscan.apple.com/content/catalogs/others/index-10.12beta-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog.gz"
+macOSDeveloperBetaURL1013="https://swscan.apple.com/content/catalogs/others/index-10.13seed-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog.gz"
 iOSPublicReleaseURL="http://mesu.apple.com/assets/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
-iOSDeveloperBetaURL="http://mesu.apple.com/assets/iOSDeveloperSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
+iOSDeveloperBetaURL10="http://mesu.apple.com/assets/iOSDeveloperSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
 iOSPublicBetaURL10="http://mesu.apple.com/assets/iOSPublicSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
+iOSDeveloperBetaURL11="https://mesu.apple.com/assets/iOS11DeveloperSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
 watchOSPublicReleaseURL="http://mesu.apple.com/assets/watch/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
-watchOSDeveloperBetaURL="http://mesu.apple.com/assets/watchOSDeveloperSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
+watchOSDeveloperBetaURL3="http://mesu.apple.com/assets/watchOSDeveloperSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
 watchOSPublicBetaURL2="http://mesu.apple.com/assets/R30.11TT05-subdivisions/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
+watchOSDeveloperBetaURL4="http://mesu.apple.com/assets/watchOS4DeveloperSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
 tvOSPublicReleaseURL="http://mesu.apple.com/assets/tv/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
 tvOSDeveloperBetaURL="http://mesu.apple.com/assets/tvOSDeveloperSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
 ApplePencilURL="http://mesu.apple.com/assets/com_apple_MobileAsset_MobileAccessoryUpdate_WirelessStylusFirmware/com_apple_MobileAsset_MobileAccessoryUpdate_WirelessStylusFirmware.xml"
@@ -43,18 +47,21 @@ function setUpdateURL(){
 		echo "(\033[1;36m1\033[0m) macOS Public Release (macOS 10.12)"
 		echo "(\033[1;36m2\033[0m) macOS Developer Beta (macOS 10.12)"
 		echo "(\033[1;36m3\033[0m) macOS Public Beta (macOS 10.12)"
-		echo "(\033[1;36m4\033[0m) iOS Public Release"
-		echo "(\033[1;36m5\033[0m) iOS Developer Beta (iOS 10)"
-		echo "(\033[1;36m6\033[0m) iOS Public Beta (iOS 10)"
-		echo "(\033[1;36m7\033[0m) watchOS Public Release"
-		echo "(\033[1;36m8\033[0m) watchOS Developer Beta"
-		echo "(\033[1;36m9\033[0m) watchOS Public Beta"
-		echo "(\033[1;36m10\033[0m) tvOS Public Release"
-		echo "(\033[1;36m11\033[0m) tvOS Developer Beta"
-		echo "(\033[1;36m12\033[0m) Apple Pencil"
-		echo "(\033[1;36m13\033[0m) Siri Remote"
-		echo "(\033[1;36m14\033[0m) Smart Keyboard (iPad Pro)"
-		echo "(\033[1;36m15\033[0m) Enter URL manually"
+		echo "(\033[1;36m4\033[0m) macOS Developer Beta (macOS 10.13)"
+		echo "(\033[1;36m5\033[0m) iOS Public Release"
+		echo "(\033[1;36m6\033[0m) iOS Developer Beta (iOS 10)"
+		echo "(\033[1;36m7\033[0m) iOS Public Beta (iOS 10)"
+		echo "(\033[1;36m8\033[0m) iOS Developer Beta (iOS 11)"
+		echo "(\033[1;36m9\033[0m) watchOS Public Release"
+		echo "(\033[1;36m10\033[0m) watchOS Developer Beta (watchOS 3.0)"
+		echo "(\033[1;36m11\033[0m) watchOS Public Beta (watchOS 2.0)"
+		echo "(\033[1;36m12\033[0m) watchOS Developer Beta (watchOS 4.0)"
+		echo "(\033[1;36m13\033[0m) tvOS Public Release"
+		echo "(\033[1;36m14\033[0m) tvOS Developer Beta"
+		echo "(\033[1;36m15\033[0m) Apple Pencil"
+		echo "(\033[1;36m16\033[0m) Siri Remote"
+		echo "(\033[1;36m17\033[0m) Smart Keyboard (iPad Pro)"
+		echo "(\033[1;36m18\033[0m) Enter URL manually"
 		showLines "-"
 		echo "Enter a number. (Enter \033[1;36mexit\033[0m to quit.)"
 		showLines "*"
@@ -69,39 +76,48 @@ function setUpdateURL(){
 			UpdateURL="${macOSPublicBetaURL1012}"
 			break
 		elif [[ "${ANSWER}" == 4 ]]; then
-			UpdateURL="${iOSPublicReleaseURL}"
+			UpdateURL="${macOSDeveloperBetaURL1013}"
 			break
 		elif [[ "${ANSWER}" == 5 ]]; then
-			UpdateURL="${iOSDeveloperBetaURL}"
+			UpdateURL="${iOSPublicReleaseURL}"
 			break
 		elif [[ "${ANSWER}" == 6 ]]; then
-			UpdateURL="${iOSPublicBetaURL10}"
+			UpdateURL="${iOSDeveloperBetaURL10}"
 			break
 		elif [[ "${ANSWER}" == 7 ]]; then
-			UpdateURL="${watchOSPublicReleaseURL}"
+			UpdateURL="${iOSPublicBetaURL10}"
 			break
 		elif [[ "${ANSWER}" == 8 ]]; then
-			UpdateURL="${watchOSDeveloperBetaURL}"
+			UpdateURL="${iOSDeveloperBetaURL11}"
 			break
 		elif [[ "${ANSWER}" == 9 ]]; then
-			UpdateURL="${watchOSPublicBetaURL2}"
+			UpdateURL="${watchOSPublicReleaseURL}"
 			break
 		elif [[ "${ANSWER}" == 10 ]]; then
-			UpdateURL="${tvOSPublicReleaseURL}"
+			UpdateURL="${watchOSDeveloperBetaURL3}"
 			break
 		elif [[ "${ANSWER}" == 11 ]]; then
-			UpdateURL="${tvOSDeveloperBetaURL}"
+			UpdateURL="${watchOSPublicBetaURL2}"
 			break
 		elif [[ "${ANSWER}" == 12 ]]; then
-			UpdateURL="${ApplePencilURL}"
+			UpdateURL="${watchOSDeveloperBetaURL4}"
 			break
 		elif [[ "${ANSWER}" == 13 ]]; then
-			UpdateURL="${SiriRemoteURL}"
+			UpdateURL="${tvOSPublicReleaseURL}"
 			break
 		elif [[ "${ANSWER}" == 14 ]]; then
-			UpdateURL="${SmartKeyboardURL}"
+			UpdateURL="${tvOSDeveloperBetaURL}"
 			break
 		elif [[ "${ANSWER}" == 15 ]]; then
+			UpdateURL="${ApplePencilURL}"
+			break
+		elif [[ "${ANSWER}" == 16 ]]; then
+			UpdateURL="${SiriRemoteURL}"
+			break
+		elif [[ "${ANSWER}" == 17 ]]; then
+			UpdateURL="${SmartKeyboardURL}"
+			break
+		elif [[ "${ANSWER}" == 18 ]]; then
 			echo "Enter URL. (See https://www.theiphonewiki.com/wiki/OTA_Updates#External_links)"
 			read -p "- " UpdateURL
 			if [[ ! -z "${UpdateURL}" ]]; then
@@ -116,16 +132,20 @@ function setUpdateURL(){
 			echo "\033[1;36mVERBOSE\033[0m=${VERBOSE}"
 			echo "\033[1;36mINTERVAL\033[0m=${INTERVAL}"
 			echo "\033[1;36mDEMO_MODE\033[0m=${DEMO_MODE}"
+			echo "\033[1;36mDEMO_COUNT\033[0m=${DEMO_COUNT}"
 			echo "\033[1;36mTEMP_PATH\033[0m=${TEMP_PATH}"
 			echo "\033[1;36mmacOSPublicReleaseURL1012\033[0m=${macOSPublicReleaseURL1012}"
 			echo "\033[1;36mmacOSDeveloperBetaURL1012\033[0m=${macOSDeveloperBetaURL1012}"
 			echo "\033[1;36mmacOSPublicBetaURL1012\033[0m=${macOSPublicBetaURL1012}"
+			echo "\033[1;36mmacOSDeveloperBetaURL1013\033[0m=${macOSDeveloperBetaURL1013}"
 			echo "\033[1;36miOSPublicReleaseURL\033[0m=${iOSPublicReleaseURL}"
-			echo "\033[1;36miOSDeveloperBetaURL\033[0m=${iOSDeveloperBetaURL}"
+			echo "\033[1;36miOSDeveloperBetaURL10\033[0m=${iOSDeveloperBetaURL10}"
 			echo "\033[1;36miOSPublicBetaURL10\033[0m=${iOSPublicBetaURL10}"
+			echo "\033[1;36miOSDeveloperBetaURL11\033[0m=${iOSDeveloperBetaURL11}"
 			echo "\033[1;36mwatchOSPublicReleaseURL\033[0m=${watchOSPublicReleaseURL}"
-			echo "\033[1;36mwatchOSDeveloperBetaURL\033[0m=${watchOSDeveloperBetaURL}"
+			echo "\033[1;36mwatchOSDeveloperBetaURL3\033[0m=${watchOSDeveloperBetaURL3}"
 			echo "\033[1;36mwatchOSPublicBetaURL2\033[0m=${watchOSPublicBetaURL2}"
+			echo "\033[1;36mwatchOSDeveloperBetaURL4\033[0m=${watchOSDeveloperBetaURL4}"
 			echo "\033[1;36mtvOSPublicReleaseURL\033[0m=${tvOSPublicReleaseURL}"
 			echo "\033[1;36mtvOSDeveloperBetaURL\033[0m=${tvOSDeveloperBetaURL}"
 			echo "\033[1;36mApplePencilURL\033[0m=${ApplePencilURL}"
@@ -153,6 +173,7 @@ function startService(){
 	if [[ "${VERBOSE}" == NO ]]; then
 		curl -o "${TEMP_PATH}/catalog.xml" "${UpdateURL}" > /dev/null 2>&1
 	else
+		echo "${UpdateURL}"
 		curl -o "${TEMP_PATH}/catalog.xml" "${UpdateURL}"
 	fi
 	FIRST_SHA="$(shasum "${TEMP_PATH}/catalog.xml" | awk '{ print $1 }')"
@@ -178,7 +199,7 @@ function startService(){
 		else
 			curl -o "${TEMP_PATH}/catalog.xml" "${UpdateURL}"
 		fi
-		if [[ ! "${DEMO_MODE}" == NO && "${COUNT}" == 5 ]]; then
+		if [[ ! "${DEMO_MODE}" == NO && "${COUNT}" == "${DEMO_COUNT}" ]]; then
 			LATER_SHA=TEST
 		else
 			LATER_SHA="$(shasum "${TEMP_PATH}/catalog.xml" | awk '{ print $1 }')"
