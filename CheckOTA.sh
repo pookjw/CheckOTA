@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=14
+VERSION=15
 VERBOSE=NO
 INTERVAL=1 # 1 second
 DEMO_MODE=NO
@@ -18,7 +18,8 @@ watchOSDeveloperBetaURL3="http://mesu.apple.com/assets/watchOSDeveloperSeed/com_
 watchOSPublicBetaURL2="http://mesu.apple.com/assets/R30.11TT05-subdivisions/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
 watchOSDeveloperBetaURL4="http://mesu.apple.com/assets/watchOS4DeveloperSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
 tvOSPublicReleaseURL="http://mesu.apple.com/assets/tv/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
-tvOSDeveloperBetaURL="http://mesu.apple.com/assets/tvOSDeveloperSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
+tvOSDeveloperBetaURL10="http://mesu.apple.com/assets/tvOSDeveloperSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
+tvOSDeveloperBetaURL11="http://mesu.apple.com/assets/tvOS11DeveloperSeed/com_apple_MobileAsset_SoftwareUpdate/com_apple_MobileAsset_SoftwareUpdate.xml"
 ApplePencilURL="http://mesu.apple.com/assets/com_apple_MobileAsset_MobileAccessoryUpdate_WirelessStylusFirmware/com_apple_MobileAsset_MobileAccessoryUpdate_WirelessStylusFirmware.xml"
 SiriRemoteURL="http://mesu.apple.com/assets/tv/com_apple_MobileAsset_MobileAccessoryUpdate_WirelessRemoteFirmware/com_apple_MobileAsset_MobileAccessoryUpdate_WirelessRemoteFirmware.xml"
 SmartKeyboardURL="http://mesu.apple.com/assets/com_apple_MobileAsset_MobileAccessoryUpdate_KeyboardCoverFirmware/com_apple_MobileAsset_MobileAccessoryUpdate_KeyboardCoverFirmware.xml"
@@ -57,11 +58,12 @@ function setUpdateURL(){
 		echo "(\033[1;36m11\033[0m) watchOS Public Beta (watchOS 2.0)"
 		echo "(\033[1;36m12\033[0m) watchOS Developer Beta (watchOS 4.0)"
 		echo "(\033[1;36m13\033[0m) tvOS Public Release"
-		echo "(\033[1;36m14\033[0m) tvOS Developer Beta"
-		echo "(\033[1;36m15\033[0m) Apple Pencil"
-		echo "(\033[1;36m16\033[0m) Siri Remote"
-		echo "(\033[1;36m17\033[0m) Smart Keyboard (iPad Pro)"
-		echo "(\033[1;36m18\033[0m) Enter URL manually"
+		echo "(\033[1;36m14\033[0m) tvOS Developer Beta (tvOS 10)"
+		echo "(\033[1;36m15\033[0m) tvOS Developer Beta (tvOS 11)"
+		echo "(\033[1;36m16\033[0m) Apple Pencil"
+		echo "(\033[1;36m17\033[0m) Siri Remote"
+		echo "(\033[1;36m18\033[0m) Smart Keyboard (iPad Pro)"
+		echo "(\033[1;36m19\033[0m) Enter URL manually"
 		showLines "-"
 		echo "Enter a number. (Enter \033[1;36mexit\033[0m to quit.)"
 		showLines "*"
@@ -106,18 +108,21 @@ function setUpdateURL(){
 			UpdateURL="${tvOSPublicReleaseURL}"
 			break
 		elif [[ "${ANSWER}" == 14 ]]; then
-			UpdateURL="${tvOSDeveloperBetaURL}"
+			UpdateURL="${tvOSDeveloperBetaURL10}"
 			break
 		elif [[ "${ANSWER}" == 15 ]]; then
-			UpdateURL="${ApplePencilURL}"
+			UpdateURL="${tvOSDeveloperBetaURL11}"
 			break
 		elif [[ "${ANSWER}" == 16 ]]; then
-			UpdateURL="${SiriRemoteURL}"
+			UpdateURL="${ApplePencilURL}"
 			break
 		elif [[ "${ANSWER}" == 17 ]]; then
-			UpdateURL="${SmartKeyboardURL}"
+			UpdateURL="${SiriRemoteURL}"
 			break
 		elif [[ "${ANSWER}" == 18 ]]; then
+			UpdateURL="${SmartKeyboardURL}"
+			break
+		elif [[ "${ANSWER}" == 19 ]]; then
 			echo "Enter URL. (See https://www.theiphonewiki.com/wiki/OTA_Updates#External_links)"
 			read -p "- " UpdateURL
 			if [[ ! -z "${UpdateURL}" ]]; then
@@ -147,7 +152,8 @@ function setUpdateURL(){
 			echo "\033[1;36mwatchOSPublicBetaURL2\033[0m=${watchOSPublicBetaURL2}"
 			echo "\033[1;36mwatchOSDeveloperBetaURL4\033[0m=${watchOSDeveloperBetaURL4}"
 			echo "\033[1;36mtvOSPublicReleaseURL\033[0m=${tvOSPublicReleaseURL}"
-			echo "\033[1;36mtvOSDeveloperBetaURL\033[0m=${tvOSDeveloperBetaURL}"
+			echo "\033[1;36mtvOSDeveloperBetaURL10\033[0m=${tvOSDeveloperBetaURL10}"
+			echo "\033[1;36mtvOSDeveloperBetaURL11\033[0m=${tvOSDeveloperBetaURL11}"
 			echo "\033[1;36mApplePencilURL\033[0m=${ApplePencilURL}"
 			echo "\033[1;36mSiriRemoteURL\033[0m=${SiriRemoteURL}"
 			echo "\033[1;36mSmartKeyboardURL\033[0m=${SmartKeyboardURL}"
