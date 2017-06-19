@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=15
+VERSION=16
 VERBOSE=NO
 INTERVAL=1 # 1 second
 DEMO_MODE=NO
@@ -66,6 +66,7 @@ function setUpdateURL(){
 		echo "(\033[1;36m19\033[0m) Enter URL manually"
 		showLines "-"
 		echo "Enter a number. (Enter \033[1;36mexit\033[0m to quit.)"
+		echo "More URL can get from https://www.theiphonewiki.com/wiki/OTA_Updates#External_links"
 		showLines "*"
 		read -p "- " ANSWER
 		if [[ "${ANSWER}" == 1 ]]; then
